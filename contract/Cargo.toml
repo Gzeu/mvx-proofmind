@@ -1,0 +1,59 @@
+[package]
+name = "mvx-proofmind-contract"
+version = "1.0.0"
+authors = ["George Pricop <pricopgeorge@gmail.com>"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Gzeu/mvx-proofmind"
+description = "AI-powered blockchain certification smart contract for MultiversX"
+keywords = ["multiversx", "smart-contract", "blockchain", "ai", "certificates"]
+categories = ["blockchain", "ai"]
+
+[lib]
+name = "mvx_proofmind_contract"
+path = "src/lib.rs"
+
+[dependencies]
+multiversx-sc = "0.44.0"
+multiversx-sc-derive = "0.44.0"
+multiversx-sc-codec = "0.18.0"
+multiversx-sc-codec-derive = "0.18.0"
+
+[dev-dependencies]
+multiversx-sc-scenario = "0.44.0"
+
+[profile.release]
+codegen-units = 1
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+overflow-checks = false
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[[bin]]
+name = "contract-test"
+path = "tests/contract_test.rs"
+
+# Build configuration for MultiversX
+[package.metadata.multiversx-sc]
+build-info = true
+
+# Features for different environments
+[features]
+default = []
+devnet = []
+mainnet = []
+testnet = []
+
+# Workspace configuration (if needed)
+[workspace]
+members = ["."]
+
+# Documentation settings
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
