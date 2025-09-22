@@ -1,0 +1,93 @@
+{
+  "name": "mvx-proofmind",
+  "version": "1.0.0",
+  "description": "AI-powered blockchain certification system on MultiversX with MindsDB integration",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:api\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:api": "cd mindsdb-integration/api && npm run dev",
+    "build": "npm run build:frontend && npm run build:api",
+    "build:frontend": "cd frontend && npm run build",
+    "build:api": "cd mindsdb-integration/api && npm run build",
+    "test": "npm run test:frontend && npm run test:api && npm run test:contract",
+    "test:frontend": "cd frontend && npm test",
+    "test:api": "cd mindsdb-integration/api && npm test",
+    "test:contract": "cd contract && cargo test",
+    "setup": "./scripts/setup.sh",
+    "deploy:devnet": "cd contract && mxpy contract deploy --bytecode=./output/mvx-proofmind.wasm --keyfile=walletKey.json --gas-limit=100000000 --proxy=https://devnet-gateway.multiversx.com --chain=D --send",
+    "deploy:mainnet": "cd contract && mxpy contract deploy --bytecode=./output/mvx-proofmind.wasm --keyfile=walletKey.json --gas-limit=100000000 --proxy=https://gateway.multiversx.com --chain=1 --send",
+    "mindsdb:setup": "cd mindsdb-integration && node setup-models.js",
+    "mindsdb:start": "docker-compose up mindsdb",
+    "lint": "npm run lint:frontend && npm run lint:api",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:api": "cd mindsdb-integration/api && npm run lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\" --ignore-path .gitignore",
+    "type-check": "cd frontend && npm run type-check",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "blockchain",
+    "multiversx",
+    "mindsdb",
+    "ai",
+    "machine-learning",
+    "certificates",
+    "smart-contracts",
+    "typescript",
+    "react",
+    "predictive-analytics"
+  ],
+  "author": {
+    "name": "George Pricop",
+    "email": "pricopgeorge@gmail.com",
+    "url": "https://github.com/Gzeu"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gzeu/mvx-proofmind.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gzeu/mvx-proofmind/issues"
+  },
+  "homepage": "https://github.com/Gzeu/mvx-proofmind#readme",
+  "devDependencies": {
+    "@types/node": "^20.8.0",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.50.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@multiversx/sdk-core": "^12.18.0",
+    "@multiversx/sdk-web-wallet-provider": "^4.1.0",
+    "@multiversx/sdk-wallet-connect-provider": "^3.0.0",
+    "@multiversx/sdk-extension-provider": "^2.0.0",
+    "@multiversx/sdk-hw-provider": "^3.0.0",
+    "mindsdb-js-sdk": "^4.25.0",
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.7.2",
+    "winston": "^3.10.0"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
